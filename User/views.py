@@ -20,9 +20,7 @@ class UserLoginAPIView(APIView):
     def post(self, request, format=None):
         username = request.data.get('username')
         password = request.data.get('password')
-        
         user = authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)
