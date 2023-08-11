@@ -13,7 +13,7 @@ class RegisterUserAPIView(APIView):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Registered successfully','data':serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginAPIView(APIView):
@@ -25,6 +25,6 @@ class UserLoginAPIView(APIView):
             login(request, user)
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-            return Response({'message': 'Login is successful!','access_token': access_token})
+            return Response({'message': 'Login is successful','access_token': access_token})
         return Response({'message': 'Invalid login credentials'}, status=status.HTTP_401_UNAUTHORIZED)
       
